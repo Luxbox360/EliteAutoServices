@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { API_BASE_URL } from '../config';
 
 interface Inquiry {
   id: number;
@@ -20,7 +21,7 @@ export default function ContactInquiries({ token }: ContactInquiriesProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/contact-inquiries', {
+    fetch(`${API_BASE_URL}/contact-inquiries`, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
       .then(res => res.json())
@@ -41,7 +42,7 @@ export default function ContactInquiries({ token }: ContactInquiriesProps) {
 
   const handleUpdateStatus = async (id: number, status: string) => {
     try {
-      await fetch(`http://localhost:3000/api/contact-inquiries/${id}`, {
+      await fetch(`${API_BASE_URL}/contact-inquiries/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

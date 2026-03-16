@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
+import { API_BASE_URL } from '../config';
 import VehiclesHero from './VehiclesHero';
 import VehiclesGrid from './VehiclesGrid';
 import VehiclesCTA from './VehiclesCTA';
@@ -39,7 +40,7 @@ export default function VehiclesPage({
   const [sortBy, setSortBy] = useState('Newest');
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/vehicles')
+    fetch(`${API_BASE_URL}/vehicles`)
       .then(res => res.json())
       .then((data: Vehicle[]) => {
         const formatted: VehicleGridItem[] = data.map((v) => ({

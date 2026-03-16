@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 import { getVehicleImageUrl } from '../utils/image-utils';
 import type { Page, ContactVehicleInfo } from '../App';
 import type { Vehicle } from '../types';
@@ -30,7 +31,7 @@ export default function VehicleDetailPage({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/vehicles/${vehicleId}`)
+    fetch(`${API_BASE_URL}/vehicles/${vehicleId}`)
       .then(res => res.json())
       .then((data: Vehicle) => {
         const vehicleData: VehicleDetail = {

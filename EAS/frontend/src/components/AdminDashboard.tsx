@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
+import { API_BASE_URL } from '../config';
 import VehicleForm from './VehicleForm';
 import ContactInquiries from './ContactInquiries';
 import { getVehicleImageUrl } from '../utils/image-utils';
@@ -32,7 +33,7 @@ export default function AdminDashboard({ user, token, onLogout }: AdminDashboard
   const fetchVehicles = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3000/api/vehicles');
+      const response = await fetch(`${API_BASE_URL}/vehicles`);
       const data = await response.json();
       setVehicles(data);
     } catch (error) {
@@ -71,7 +72,7 @@ export default function AdminDashboard({ user, token, onLogout }: AdminDashboard
   const handleToggleStatus = async (id: number, currentStatus: string) => {
     const newStatus = currentStatus === 'available' ? 'sold' : 'available';
     try {
-      const response = await fetch(`http://localhost:3000/api/vehicles/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/vehicles/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -100,7 +101,7 @@ export default function AdminDashboard({ user, token, onLogout }: AdminDashboard
     if (!deleteModal.vehicleId) return;
 
     try {
-      const response = await fetch(`http://localhost:3000/api/vehicles/${deleteModal.vehicleId}`, {
+      const response = await fetch(`${API_BASE_URL}/vehicles/${deleteModal.vehicleId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -129,7 +130,7 @@ export default function AdminDashboard({ user, token, onLogout }: AdminDashboard
   const handleEdit = async (id: number) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/api/vehicles/${id}`);
+      const response = await fetch(`${API_BASE_URL}/vehicles/${id}`);
       const data = await response.json();
       setEditingVehicle(data);
       setView('edit');

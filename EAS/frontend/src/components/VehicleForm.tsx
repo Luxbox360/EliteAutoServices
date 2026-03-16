@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { API_BASE_URL, UPLOADS_BASE_URL } from '../config';
 import type { Vehicle } from '../types';
 
 interface VehicleFormProps {
@@ -53,7 +54,7 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
       if (vehicle.image_main) {
         // If it starts with a timestamp-like pattern, it's from uploads
         const isUploaded = /^\d+-/.test(vehicle.image_main);
-        setPreviewUrl(isUploaded ? `http://localhost:3000/uploads/${vehicle.image_main}` : `/assets/images/${vehicle.image_main}`);
+        setPreviewUrl(isUploaded ? `${UPLOADS_BASE_URL}/${vehicle.image_main}` : `/assets/images/${vehicle.image_main}`);
       }
     }
   }, [vehicle]);
@@ -96,13 +97,14 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
         const uploadFormData = new FormData();
         uploadFormData.append('file', selectedFile);
 
-        const uploadResponse = await fetch('http://localhost:3000/api/vehicles/upload', {
+        const uploadResponse = await fetch(`${API_BASE_URL}/vehicles/upload`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`
           },
           body: uploadFormData,
         });
+
 
         if (!uploadResponse.ok) {
           throw new Error('Failed to upload image');
@@ -113,7 +115,7 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
       }
 
       // 2. Save vehicle
-      const url = vehicle ? `http://localhost:3000/api/vehicles/${vehicle.id}` : 'http://localhost:3000/api/vehicles';
+      const url = vehicle ? `${API_BASE_URL}/vehicles/${vehicle.id}` : `${API_BASE_URL}/vehicles`;
       const method = vehicle ? 'PATCH' : 'POST';
 
       const response = await fetch(url, {

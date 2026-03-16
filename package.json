@@ -1,0 +1,11 @@
+{
+  "name": "elite-auto-services",
+  "private": true,
+  "scripts": {
+    "install:backend": "cd EAS/backend && npm install",
+    "install:frontend": "cd EAS/frontend && npm install",
+    "build:backend": "cd EAS/backend && npm run build",
+    "build:frontend": "cd EAS/frontend && npm run build",
+    "start:backend": "cd EAS/backend && npm run start:prod"
+  }
+}

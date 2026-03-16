@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_BASE_URL } from '../config';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -14,7 +15,7 @@ export default function Contact() {
     setStatus('loading');
 
     try {
-      const response = await fetch('http://localhost:3000/contact-inquiries', {
+      const response = await fetch(`${API_BASE_URL}/contact-inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -26,7 +27,7 @@ export default function Contact() {
       } else {
         setStatus('error');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
     }
   };

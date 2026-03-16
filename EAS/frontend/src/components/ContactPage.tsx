@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 import { getVehicleImageUrl } from '../utils/image-utils';
 
 interface ContactPageProps {
@@ -35,7 +36,7 @@ export default function ContactPage({ vehicleInfo }: ContactPageProps) {
     setStatus('loading');
 
     try {
-      const response = await fetch('http://localhost:3000/api/contact-inquiries', {
+      const response = await fetch(`${API_BASE_URL}/contact-inquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
