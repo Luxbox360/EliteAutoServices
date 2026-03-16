@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Vehicles - Elite Auto Services</title>
+    <meta name="description" content="Browse our selection of quality pre-owned vehicles">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex h-16 items-center justify-between">
+                <a href="index.html" class="text-xl font-bold text-black">Elite Auto Services</a>
+                
+                <button class="md:hidden flex flex-col gap-1.5" id="menuToggle" aria-label="Toggle menu">
+                    <span class="w-6 h-0.5 bg-black block"></span>
+                    <span class="w-6 h-0.5 bg-black block"></span>
+                    <span class="w-6 h-0.5 bg-black block"></span>
+                </button>
+                
+                <nav class="hidden md:flex items-center gap-8" id="navMenu">
+                    <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-black transition-colors">Home</a>
+                    <a href="about.html" class="text-sm font-medium text-gray-700 hover:text-black transition-colors">About</a>
+                    <a href="vehicles.html" class="text-sm font-medium text-gray-700 hover:text-black transition-colors">Vehicles</a>
+                    <a href="index.html#contact" class="text-sm font-medium text-white bg-black hover:bg-gray-800 px-4 py-2 rounded transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Header -->
+        <section class="py-16 bg-gradient-to-br from-gray-800 to-black text-white text-center">
+            <div class="max-w-6xl mx-auto px-4">
+                <h1 class="text-4xl md:text-5xl font-semibold tracking-tight mb-4">Our Vehicle Inventory</h1>
+                <p class="text-xl opacity-90">Quality pre-owned vehicles thoroughly inspected and ready for the road</p>
+            </div>
+        </section>
+
+        <!-- Vehicles Grid -->
+        <section class="py-20">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Vehicle 1 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="h-64 bg-gray-200 overflow-hidden">
+                            <img src="assets/images/2019-toyota-rav4-blue-suv.jpg" alt="2019 Toyota RAV4 Blue SUV" class="w-full h-full object-cover" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-4">2019 Toyota RAV4</h3>
+                            <p class="text-sm text-gray-600 mb-2"><strong>Type:</strong> SUV</p>
+                            <p class="text-sm text-gray-600 mb-2"><strong>Color:</strong> Blue Pearl</p>
+                            <p class="text-sm text-gray-600 mb-2"><strong>Mileage:</strong> 45,000 miles</p>
+                            <p class="text-sm text-gray-600 mb-4"><strong>Price:</strong> $24,500</p>
+                            <a href="vehicle-detail.html?id=1" class="block w-full bg-black text-white font-semibold py-2 px-4 rounded text-center hover:bg-gray-800 transition-colors text-sm">View Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle 2 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="h-64 bg-gray-200 overflow-hidden">
+                            <img src="assets/images/2020-honda-accord-silver-sedan.jpg" alt="2020 Honda Accord Silver Sedan" class="w-full h-full object-cover" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-4">2020 Honda Accord</h3>
+                            <p class="text-sm text-gray-600 mb-2"><strong>Type:</strong> Sedan</p>
+                            <p class="text-sm text-gray-600 mb-2"><strong>Color:</strong> Silver</p>
+                            <p class="text-sm text-gray-600 mb-2"><strong>Mileage:</strong> 32,000 miles</p>
+                            <p class="text-sm text-gray-600 mb-4"><strong>Price:</strong> $22,800</p>
+                            <a href="vehicle-detail.html?id=2" class="block w-full bg-black text-white font-semibold py-2 px-4 rounded text-center hover:bg-gray-800 transition-colors text-sm">View Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle 3 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="h-64 bg-gray-200 overflow-hidden">
+                            <img src="assets/images/2021-ford-f-150-black-pickup-truck.jpg" alt="2021 Ford F-150 Black Pickup" class="w-full h-full object-cover" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-4">2021 Ford F-150</h3>
+                            <p class="text-sm text-gray-600 mb-2"><strong>Type:</strong> Pickup Truck</p>
+                            <p class="text-sm text-gray-600 mb-2"><strong>Color:</strong> Black</p>
+                            <p class="text-sm text-gray-600 mb-2"><strong>Mileage:</strong> 28,500 miles</p>
+                            <p class="text-sm text-gray-600 mb-4"><strong>Price:</strong> $32,900</p>
+                            <a href="vehicle-detail.html?id=3" class="block w-full bg-black text-white font-semibold py-2 px-4 rounded text-center hover:bg-gray-800 transition-colors text-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact CTA -->
+        <section class="py-16 bg-black text-white text-center">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">Interested in any of these vehicles?</h2>
+                <p class="text-lg mb-8 opacity-90">Contact us for a test drive or more information</p>
+                <a href="index.html#contact" class="inline-block bg-white text-black font-semibold py-3 px-8 rounded hover:bg-gray-200 transition-colors">Get in Touch</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Elite Auto Services</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Professional automotive repair and maintenance services with over 20 years of experience.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-sm text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="about.html" class="text-sm text-gray-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="vehicles.html" class="text-sm text-gray-400 hover:text-white transition-colors">Vehicles</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li><a href="tel:5551234567" class="text-sm text-gray-400 hover:text-white transition-colors">📞 (555) 123-4567</a></li>
+                        <li><a href="mailto:info@eliteauto.com" class="text-sm text-gray-400 hover:text-white transition-colors">✉️ info@eliteauto.com</a></li>
+                        <li class="text-sm text-gray-400">📍 123 Main St, Your City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2025 Elite Auto Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Auto Services - Professional Auto Mechanic</title>
+    <meta name="description" content="Expert automotive repair, maintenance, and quality used vehicles for sale">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex h-16 items-center justify-between">
+                <a href="index.html" class="text-xl font-bold text-black">Elite Auto Services</a>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden flex flex-col gap-1.5" id="menuToggle" aria-label="Toggle menu">
+                    <span class="w-6 h-0.5 bg-black block"></span>
+                    <span class="w-6 h-0.5 bg-black block"></span>
+                    <span class="w-6 h-0.5 bg-black block"></span>
+                </button>
+                
+                <!-- Navigation Menu -->
+                <nav class="hidden md:flex items-center gap-8" id="navMenu">
+                    <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-black transition-colors">Home</a>
+                    <a href="about.html" class="text-sm font-medium text-gray-700 hover:text-black transition-colors">About</a>
+                    <a href="vehicles.html" class="text-sm font-medium text-gray-700 hover:text-black transition-colors">Vehicles</a>
+                    <a href="#contact" class="text-sm font-medium text-white bg-black hover:bg-gray-800 px-4 py-2 rounded transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="py-20 md:py-32 bg-gradient-to-br from-gray-800 to-black text-white">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="max-w-3xl">
+                    <h1 class="text-5xl md:text-7xl font-semibold tracking-tight mb-6 leading-tight">Expert automotive care you can trust</h1>
+                    <p class="text-xl leading-relaxed mb-8 opacity-95">With over 20 years of experience, we provide professional repair services and quality used vehicles to keep you on the road.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 flex-wrap">
+                        <a href="#contact" class="bg-black text-white font-semibold py-3 px-6 rounded hover:bg-gray-800 transition-colors text-center">Schedule Service</a>
+                        <a href="vehicles.html" class="border-2 border-white text-white font-semibold py-3 px-6 rounded hover:bg-white hover:text-black transition-colors text-center">Browse Vehicles →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">Our Services</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mb-12">From routine maintenance to complex repairs, we handle it all with expertise and care.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Service Card 1 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="text-4xl mb-4">🔧</div>
+                        <h3 class="text-xl font-semibold mb-2">General Repairs</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Comprehensive diagnostic and repair services for all vehicle makes and models</p>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="text-4xl mb-4">🚗</div>
+                        <h3 class="text-xl font-semibold mb-2">Preventive Maintenance</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Regular maintenance to keep your vehicle running smoothly and efficiently</p>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="text-4xl mb-4">✓</div>
+                        <h3 class="text-xl font-semibold mb-2">Quality Parts</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">We use only high-quality OEM and aftermarket parts for all repairs</p>
+                    </div>
+
+                    <!-- Service Card 4 -->
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="text-4xl mb-4">⏱</div>
+                        <h3 class="text-xl font-semibold mb-2">Fast Service</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">Most repairs completed same-day with our efficient service process</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vehicle CTA Section -->
+        <section class="py-16 bg-black text-white text-center">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">Looking for a reliable vehicle?</h2>
+                <p class="text-lg mb-8 opacity-90">Browse our selection of quality pre-owned vehicles, thoroughly inspected and ready for the road.</p>
+                <a href="vehicles.html" class="inline-block bg-white text-black font-semibold py-3 px-8 rounded hover:bg-gray-200 transition-colors">View Available Vehicles →</a>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gray-50">
+            <div class="max-w-2xl mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">Get in Touch</h2>
+                <p class="text-lg text-gray-600 mb-8">Ready to schedule a service or have questions? Contact us today.</p>
+                
+                <div class="space-y-4 mb-8 text-left max-w-md mx-auto">
+                    <div class="text-sm">
+                        <strong class="block text-black mb-1">Phone:</strong>
+                        <a href="tel:5551234567" class="text-black hover:font-semibold transition-all">(555) 123-4567</a>
+                    </div>
+                    <div class="text-sm">
+                        <strong class="block text-black mb-1">Email:</strong>
+                        <a href="mailto:info@eliteauto.com" class="text-black hover:font-semibold transition-all">info@eliteauto.com</a>
+                    </div>
+                    <div class="text-sm">
+                        <strong class="block text-black mb-1">Address:</strong>
+                        <span>123 Main St, Your City</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="tel:5551234567" class="bg-black text-white font-semibold py-3 px-6 rounded hover:bg-gray-800 transition-colors">Call Now</a>
+                    <a href="mailto:info@eliteauto.com" class="border-2 border-black text-black font-semibold py-3 px-6 rounded hover:bg-gray-100 transition-colors">Email Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+        <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Elite Auto Services</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Professional automotive repair and maintenance services with over 20 years of experience.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-sm text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="about.html" class="text-sm text-gray-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="vehicles.html" class="text-sm text-gray-400 hover:text-white transition-colors">Vehicles</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li><a href="tel:5551234567" class="text-sm text-gray-400 hover:text-white transition-colors">📞 (555) 123-4567</a></li>
+                        <li><a href="mailto:info@eliteauto.com" class="text-sm text-gray-400 hover:text-white transition-colors">✉️ info@eliteauto.com</a></li>
+                        <li class="text-sm text-gray-400">📍 123 Main St, Your City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2025 Elite Auto Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

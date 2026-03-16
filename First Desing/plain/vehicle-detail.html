@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Details - Elite Auto Services</title>
+    <meta name="description" content="View detailed information about our vehicles">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex h-16 items-center justify-between">
+                <a href="index.html" class="text-xl font-bold text-black">Elite Auto Services</a>
+                
+                <button class="md:hidden flex flex-col gap-1.5" id="menuToggle" aria-label="Toggle menu">
+                    <span class="w-6 h-0.5 bg-black block"></span>
+                    <span class="w-6 h-0.5 bg-black block"></span>
+                    <span class="w-6 h-0.5 bg-black block"></span>
+                </button>
+                
+                <nav class="hidden md:flex items-center gap-8" id="navMenu">
+                    <a href="index.html" class="text-sm font-medium text-gray-700 hover:text-black transition-colors">Home</a>
+                    <a href="about.html" class="text-sm font-medium text-gray-700 hover:text-black transition-colors">About</a>
+                    <a href="vehicles.html" class="text-sm font-medium text-gray-700 hover:text-black transition-colors">Vehicles</a>
+                    <a href="index.html#contact" class="text-sm font-medium text-white bg-black hover:bg-gray-800 px-4 py-2 rounded transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Breadcrumb -->
+        <div class="bg-gray-100 border-b border-gray-200 py-3">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex items-center gap-2 flex-wrap text-sm">
+                    <a href="index.html" class="text-black hover:font-semibold transition-all">Home</a>
+                    <span class="text-gray-400">/</span>
+                    <a href="vehicles.html" class="text-black hover:font-semibold transition-all">Vehicles</a>
+                    <span class="text-gray-400">/</span>
+                    <span id="breadcrumb-title" class="text-gray-600">Vehicle Details</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vehicle Detail Section -->
+        <section class="py-12">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="grid md:grid-cols-2 gap-12 mb-20">
+                    <!-- Image Gallery -->
+                    <div class="space-y-4">
+                        <div class="bg-gray-100 rounded-lg overflow-hidden border border-gray-300">
+                            <img id="mainImage" src="" alt="Vehicle main image" class="w-full h-96 object-cover">
+                        </div>
+                        <div class="grid grid-cols-5 gap-2">
+                            <img id="thumb1" src="" alt="Vehicle view 1" class="thumbnail h-20 bg-gray-100 border-2 border-gray-300 rounded cursor-pointer active:border-black transition-all object-cover" onclick="changeMainImage(this.src)">
+                            <img id="thumb2" src="" alt="Vehicle view 2" class="thumbnail h-20 bg-gray-100 border-2 border-gray-300 rounded cursor-pointer active:border-black transition-all object-cover" onclick="changeMainImage(this.src)">
+                            <img id="thumb3" src="" alt="Vehicle view 3" class="thumbnail h-20 bg-gray-100 border-2 border-gray-300 rounded cursor-pointer active:border-black transition-all object-cover" onclick="changeMainImage(this.src)">
+                            <img id="thumb4" src="" alt="Vehicle view 4" class="thumbnail h-20 bg-gray-100 border-2 border-gray-300 rounded cursor-pointer active:border-black transition-all object-cover" onclick="changeMainImage(this.src)">
+                            <img id="thumb5" src="" alt="Vehicle view 5" class="thumbnail h-20 bg-gray-100 border-2 border-gray-300 rounded cursor-pointer active:border-black transition-all object-cover" onclick="changeMainImage(this.src)">
+                        </div>
+                    </div>
+
+                    <!-- Vehicle Information -->
+                    <div>
+                        <h1 id="vehicleTitle" class="text-4xl font-bold mb-6"></h1>
+                        
+                        <div class="mb-8 pb-6 border-b-2 border-black">
+                            <span class="text-xs font-semibold text-gray-600 uppercase tracking-wider block mb-2">Price</span>
+                            <h2 id="vehiclePrice" class="text-4xl font-bold text-black"></h2>
+                        </div>
+
+                        <!-- Quick Facts -->
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <span class="text-xs font-semibold text-gray-600 uppercase block mb-1">Year</span>
+                                    <span id="vehicleYear" class="text-lg font-semibold text-black"></span>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-semibold text-gray-600 uppercase block mb-1">Type</span>
+                                    <span id="vehicleType" class="text-lg font-semibold text-black"></span>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-semibold text-gray-600 uppercase block mb-1">Color</span>
+                                    <span id="vehicleColor" class="text-lg font-semibold text-black"></span>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-semibold text-gray-600 uppercase block mb-1">Mileage</span>
+                                    <span id="vehicleMileage" class="text-lg font-semibold text-black"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col gap-3 mb-8">
+                            <a href="index.html#contact" class="bg-black text-white font-semibold py-3 px-6 rounded hover:bg-gray-800 transition-colors text-center">Schedule Test Drive</a>
+                            <a href="index.html#contact" class="border-2 border-black text-black font-semibold py-3 px-6 rounded hover:bg-gray-100 transition-colors text-center">Get More Info</a>
+                        </div>
+
+                        <!-- Specifications -->
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                            <h3 class="text-lg font-semibold mb-4 border-b-2 border-black pb-2">Specifications</h3>
+                            <table class="w-full text-sm">
+                                <tr class="border-b border-gray-200">
+                                    <td class="font-semibold text-gray-600 py-2">Make & Model</td>
+                                    <td id="specMakeModel" class="py-2"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200">
+                                    <td class="font-semibold text-gray-600 py-2">Vehicle Type</td>
+                                    <td id="specType" class="py-2"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200">
+                                    <td class="font-semibold text-gray-600 py-2">Exterior Color</td>
+                                    <td id="specColor" class="py-2"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200">
+                                    <td class="font-semibold text-gray-600 py-2">Mileage</td>
+                                    <td id="specMileage" class="py-2"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200">
+                                    <td class="font-semibold text-gray-600 py-2">Condition</td>
+                                    <td class="py-2">Excellent - Fully Inspected</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-gray-600 py-2">Warranty</td>
+                                    <td class="py-2">12 Months Coverage</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="border-t-2 border-b-2 border-gray-200 py-16 mb-16">
+                    <h2 class="text-3xl font-semibold text-center mb-12">Vehicle Features</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <span class="text-3xl font-bold text-black block mb-2">✓</span>
+                            <span class="font-semibold">Fully Inspected</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="text-3xl font-bold text-black block mb-2">✓</span>
+                            <span class="font-semibold">Clean Title</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="text-3xl font-bold text-black block mb-2">✓</span>
+                            <span class="font-semibold">Regular Maintenance</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="text-3xl font-bold text-black block mb-2">✓</span>
+                            <span class="font-semibold">No Accidents</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="text-3xl font-bold text-black block mb-2">✓</span>
+                            <span class="font-semibold">Service Records</span>
+                        </div>
+                        <div class="text-center">
+                            <span class="text-3xl font-bold text-black block mb-2">✓</span>
+                            <span class="font-semibold">Warranty Included</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description Section -->
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-8 mb-16">
+                    <h2 class="text-2xl font-semibold mb-4 border-b-2 border-black pb-3">About This Vehicle</h2>
+                    <p class="text-gray-600 leading-relaxed mb-4">This vehicle has been carefully selected and thoroughly inspected by our expert team. It represents excellent value and reliability. Every vehicle in our inventory meets our strict quality standards.</p>
+                    <p class="text-gray-600 leading-relaxed">Our comprehensive inspection includes checking all mechanical systems, safety features, and cosmetic condition. All service records are available for review.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-12 bg-black text-white text-center">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">Interested in This Vehicle?</h2>
+                <p class="text-lg mb-8 opacity-90">Contact us today for a test drive or to discuss financing options</p>
+                <a href="index.html#contact" class="inline-block bg-white text-black font-semibold py-3 px-8 rounded hover:bg-gray-200 transition-colors">Get in Touch</a>
+            </div>
+        </section>
+
+        <!-- Similar Vehicles -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-3xl font-semibold mb-12">Other Available Vehicles</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="h-48 bg-gray-200 overflow-hidden">
+                            <img src="assets/images/2019-toyota-rav4-blue-suv.jpg" alt="2019 Toyota RAV4 Blue SUV" class="w-full h-full object-cover" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold mb-3">2019 Toyota RAV4</h3>
+                            <p class="text-xs text-gray-600 mb-1"><strong>Type:</strong> SUV</p>
+                            <p class="text-xs text-gray-600 mb-1"><strong>Color:</strong> Blue Pearl</p>
+                            <p class="text-xs text-gray-600 mb-1"><strong>Mileage:</strong> 45,000 miles</p>
+                            <p class="text-xs text-gray-600 mb-3"><strong>Price:</strong> $24,500</p>
+                            <a href="vehicle-detail.html?id=1" class="block w-full bg-black text-white font-semibold py-2 px-4 rounded text-center hover:bg-gray-800 transition-colors text-xs">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="h-48 bg-gray-200 overflow-hidden">
+                            <img src="assets/images/2020-honda-accord-silver-sedan.jpg" alt="2020 Honda Accord Silver Sedan" class="w-full h-full object-cover" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold mb-3">2020 Honda Accord</h3>
+                            <p class="text-xs text-gray-600 mb-1"><strong>Type:</strong> Sedan</p>
+                            <p class="text-xs text-gray-600 mb-1"><strong>Color:</strong> Silver</p>
+                            <p class="text-xs text-gray-600 mb-1"><strong>Mileage:</strong> 32,000 miles</p>
+                            <p class="text-xs text-gray-600 mb-3"><strong>Price:</strong> $22,800</p>
+                            <a href="vehicle-detail.html?id=2" class="block w-full bg-black text-white font-semibold py-2 px-4 rounded text-center hover:bg-gray-800 transition-colors text-xs">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="h-48 bg-gray-200 overflow-hidden">
+                            <img src="assets/images/2021-ford-f-150-black-pickup-truck.jpg" alt="2021 Ford F-150 Black Pickup" class="w-full h-full object-cover" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold mb-3">2021 Ford F-150</h3>
+                            <p class="text-xs text-gray-600 mb-1"><strong>Type:</strong> Pickup Truck</p>
+                            <p class="text-xs text-gray-600 mb-1"><strong>Color:</strong> Black</p>
+                            <p class="text-xs text-gray-600 mb-1"><strong>Mileage:</strong> 28,500 miles</p>
+                            <p class="text-xs text-gray-600 mb-3"><strong>Price:</strong> $32,900</p>
+                            <a href="vehicle-detail.html?id=3" class="block w-full bg-black text-white font-semibold py-2 px-4 rounded text-center hover:bg-gray-800 transition-colors text-xs">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-8">
+                <div>
+                    <h4 class="font-semibold text-lg mb-3">About Us</h4>
+                    <p class="text-gray-300 text-sm">Premium vehicle dealership offering carefully selected quality vehicles for every budget.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-3">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="about.html" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="vehicles.html" class="hover:text-white transition-colors">Vehicles</a></li>
+                        <li><a href="index.html#contact" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-3">Contact Info</h4>
+                    <p class="text-gray-300 text-sm mb-1">Email: info@vehicledealership.com</p>
+                    <p class="text-gray-300 text-sm mb-1">Phone: (555) 123-4567</p>
+                    <p class="text-gray-300 text-sm">Address: 123 Main Street, City, State</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-3">Follow Us</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">Facebook</a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">Instagram</a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2024 Premium Vehicle Dealership. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/vehicle-detail.js"></script>
+</body>
+</html>

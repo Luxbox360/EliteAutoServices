@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+.DS_Store
+dist/
+dist-ssr/
+*.local
+
+# Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Backend specific
+EAS/backend/dist/
+EAS/backend/uploads/*
+!EAS/backend/uploads/.gitkeep
+
+# Frontend specific
+EAS/frontend/dist/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+.gemini/
+tmp/
