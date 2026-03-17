@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { API_BASE_URL, UPLOADS_BASE_URL } from '../config';
+import { API_BASE_URL } from '../config';
 import { getVehicleImageUrl } from '../utils/image-utils';
 import type { Vehicle } from '../types';
 
