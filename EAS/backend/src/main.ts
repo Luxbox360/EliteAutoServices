@@ -2,13 +2,16 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // Enable CORS
-  app.enableCors();
+  // Enable CORS for all origins and methods
+  app.enableCors({
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
 
   // Global validation pipe
   app.useGlobalPipes(
@@ -22,8 +25,14 @@ async function bootstrap() {
   // API prefix
   app.setGlobalPrefix('api');
 
-  // Ensure static files also have CORS if needed (Express handles this via the main CORS)
-  
+  // Static files middleware with CORS headers
+  app.useStaticAssets('uploads', {
+    prefix: '/uploads',
+    setHeaders: (res) => {
+      res.set('Access-Control-Allow-Origin', '*');
+    },
+  });
+
   await app.listen(process.env.PORT ?? 3000);
 }
 
