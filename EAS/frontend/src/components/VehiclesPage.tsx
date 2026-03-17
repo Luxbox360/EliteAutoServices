@@ -3,7 +3,6 @@ import { API_BASE_URL } from '../config';
 import VehiclesHero from './VehiclesHero';
 import VehiclesGrid from './VehiclesGrid';
 import VehiclesCTA from './VehiclesCTA';
-import { getVehicleImageUrl } from '../utils/image-utils';
 import type { Page, ContactVehicleInfo } from '../App';
 import type { Vehicle } from '../types';
 
