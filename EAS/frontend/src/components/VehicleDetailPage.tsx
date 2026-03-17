@@ -1,17 +1,7 @@
 import { useState, useEffect } from 'react';
-import { API_BASE_URL } from '../config';
 import { getVehicleImageUrl } from '../utils/image-utils';
 import type { Page, ContactVehicleInfo } from '../App';
 import type { Vehicle } from '../types';
-
-interface VehicleImages {
-  main: string;
-  gallery: string[];
-}
-
-interface VehicleDetail extends Vehicle {
-  images_formatted: VehicleImages;
-}
 
 interface VehicleDetailPageProps {
   vehicleId: number;
@@ -26,22 +16,15 @@ export default function VehicleDetailPage({
   setSelectedVehicleId,
   onInquire,
 }: VehicleDetailPageProps) {
-  const [vehicle, setVehicle] = useState<VehicleDetail | null>(null);
+  const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/vehicles/${vehicleId}`)
+    fetch(`https://backend-production-35cd.up.railway.app/api/vehicles/${vehicleId}`)
       .then(res => res.json())
       .then((data: Vehicle) => {
-        const vehicleData: VehicleDetail = {
-          ...data,
-          images_formatted: (data.images as unknown as VehicleImages) || {
-            main: data.image_main || 'placeholder.jpg',
-            gallery: [data.image_main || 'placeholder.jpg', data.image_main || 'placeholder.jpg']
-          }
-        };
-        setVehicle(vehicleData);
+        setVehicle(data);
         setCurrentImageIndex(0);
         setLoading(false);
       })
@@ -53,230 +36,214 @@ export default function VehicleDetailPage({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-600">
-        Loading vehicle...
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-xs font-black uppercase tracking-widest italic">Loading data...</p>
+        </div>
       </div>
     );
   }
 
   if (!vehicle) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-600">
+      <div className="min-h-screen flex items-center justify-center text-gray-600 uppercase font-black tracking-tighter text-2xl">
         Vehicle not found
       </div>
     );
   }
 
-  const currentImageSrc = getVehicleImageUrl(vehicle.images_formatted.main);
-  const thumbnails = vehicle.images_formatted.gallery.map(img => getVehicleImageUrl(img));
+  // Combine main image with gallery for the slideshow
+  const allImages = [
+    vehicle.image_main,
+    ...(Array.isArray(vehicle.images) ? vehicle.images : [])
+  ].filter(Boolean) as string[];
+
+  const currentImageSrc = getVehicleImageUrl(allImages[currentImageIndex]);
 
   const handleBackToVehicles = () => {
     setSelectedVehicleId(null);
     setCurrentPage('vehicles');
   };
 
-  const specsData = (vehicle.specs as Record<string, any>) || {
+  const specsData = (vehicle.specs as any) || {
     condition: 'Excellent',
     warranty: '12 Months',
     features: ['Fully Inspected', 'Clean Title']
   };
 
-  const getVehicleDescription = () => {
-    if (vehicle.description && vehicle.description.trim() !== '') {
-      return vehicle.description;
-    }
-    return `This ${vehicle.make} ${vehicle.model} has been carefully selected and thoroughly inspected by our expert team. It represents excellent value and reliability. Every vehicle in our inventory meets our strict quality standards.`;
-  };
-
   return (
-    <>
-      {/* Breadcrumb */}
-      <nav className="bg-gray-100 border-b border-gray-200 py-3">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center gap-2 flex-wrap text-sm">
-            <button onClick={() => setCurrentPage('home')} className="text-black hover:font-semibold transition-all">
-              Home
-            </button>
-            <span className="text-gray-400">/</span>
-            <button onClick={handleBackToVehicles} className="text-black hover:font-semibold transition-all">
-              Vehicles
-            </button>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-600">{`${vehicle.year} ${vehicle.make} ${vehicle.model}`}</span>
+    <div className="bg-white min-h-screen pb-20">
+      {/* Dynamic Breadcrumb */}
+      <nav className="bg-gray-50 border-b border-gray-100 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-gray-400">
+            <button onClick={() => setCurrentPage('home')} className="hover:text-black transition-colors">Home</button>
+            <span>/</span>
+            <button onClick={handleBackToVehicles} className="hover:text-black transition-colors">Inventory</button>
+            <span>/</span>
+            <span className="text-black">{vehicle.year} {vehicle.make} {vehicle.model}</span>
           </div>
         </div>
       </nav>
 
-      {/* Main Detail Section */}
-      <section className="py-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 mb-20">
-            {/* Image Gallery */}
-            <div className="space-y-4">
-              <div className="bg-gray-100 rounded-lg overflow-hidden border border-gray-300">
-                <img
-                  src={currentImageSrc}
-                  alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-                  className="w-full h-96 object-cover transition-opacity duration-300"
-                />
-              </div>
-              <div className="grid grid-cols-5 gap-2">
-                {thumbnails.map((src, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`h-20 bg-gray-100 border-2 rounded overflow-hidden transition-all ${
-                      currentImageIndex === index ? 'border-black' : 'border-gray-300'
-                    }`}
+      <section className="pt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-12 gap-12 mb-20">
+          
+          {/* Left: Image Gallery (7 cols) */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="relative aspect-[16/10] bg-gray-50 rounded-[2.5rem] overflow-hidden border border-gray-100 shadow-2xl shadow-black/5 group">
+              <img
+                src={currentImageSrc}
+                alt=""
+                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+              />
+              
+              {allImages.length > 1 && (
+                <div className="absolute inset-0 flex items-center justify-between p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button 
+                    onClick={() => setCurrentImageIndex(prev => (prev === 0 ? allImages.length - 1 : prev - 1))}
+                    className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:bg-black hover:text-white transition-all"
                   >
-                    <img
-                      src={src}
-                      alt={`${vehicle.make} ${vehicle.model} view ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
+                    ←
                   </button>
-                ))}
-              </div>
+                  <button 
+                    onClick={() => setCurrentImageIndex(prev => (prev === allImages.length - 1 ? 0 : prev + 1))}
+                    className="w-12 h-12 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:bg-black hover:text-white transition-all"
+                  >
+                    →
+                  </button>
+                </div>
+              )}
             </div>
 
-            {/* Vehicle Information */}
-            <div>
-              <h1 className="text-4xl font-bold mb-6">{`${vehicle.year} ${vehicle.make} ${vehicle.model}`}</h1>
-
-              <div className="mb-8 pb-6 border-b-2 border-black">
-                <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider block mb-2">Price</span>
-                <h2 className="text-4xl font-bold text-black">${Number(vehicle.price).toLocaleString()}</h2>
-              </div>
-
-              {/* Quick Facts */}
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <span className="text-xs font-semibold text-gray-600 uppercase block mb-1">Year</span>
-                    <span className="text-lg font-semibold text-black">{vehicle.year}</span>
-                  </div>
-                  <div>
-                    <span className="text-xs font-semibold text-gray-600 uppercase block mb-1">Type</span>
-                    <span className="text-lg font-semibold text-black">{vehicle.type}</span>
-                  </div>
-                  <div>
-                    <span className="text-xs font-semibold text-gray-600 uppercase block mb-1">Color</span>
-                    <span className="text-lg font-semibold text-black">{vehicle.color}</span>
-                  </div>
-                  <div>
-                    <span className="text-xs font-semibold text-gray-600 uppercase block mb-1">Mileage</span>
-                    <span className="text-lg font-semibold text-black">{Number(vehicle.mileage).toLocaleString()} miles</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col gap-3 mb-8">
-                <button 
-                  onClick={() => onInquire({
-                    id: vehicle.id,
-                    year: vehicle.year,
-                    make: vehicle.make,
-                    model: vehicle.model,
-                    price: Number(vehicle.price),
-                    image: vehicle.image_main || 'placeholder.jpg'
-                  })}
-                  className="bg-black text-white font-semibold py-3 px-6 rounded hover:bg-gray-800 transition-colors text-center"
+            {/* Thumbnails */}
+            <div className="grid grid-cols-5 sm:grid-cols-6 gap-3">
+              {allImages.map((img, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`aspect-square rounded-2xl overflow-hidden border-2 transition-all ${
+                    currentImageIndex === index ? 'border-black scale-95 shadow-inner' : 'border-transparent opacity-60 hover:opacity-100'
+                  }`}
                 >
-                  Schedule Test Drive
+                  <img src={getVehicleImageUrl(img)} alt="" className="w-full h-full object-cover" />
                 </button>
-                <button 
-                  onClick={() => onInquire({
-                    id: vehicle.id,
-                    year: vehicle.year,
-                    make: vehicle.make,
-                    model: vehicle.model,
-                    price: Number(vehicle.price),
-                    image: vehicle.image_main || 'placeholder.jpg'
-                  })}
-                  className="border-2 border-black text-black font-semibold py-3 px-6 rounded hover:bg-gray-100 transition-colors text-center"
-                >
-                  Get More Info
-                </button>
-              </div>
-
-              {/* Specifications */}
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-4 border-b-2 border-black pb-2">Specifications</h3>
-                <table className="w-full text-sm">
-                  <tbody>
-                    <tr className="border-b border-gray-200">
-                      <td className="font-semibold text-gray-600 py-2">VIN</td>
-                      <td className="py-2 font-mono">{vehicle.vin}</td>
-                    </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="font-semibold text-gray-600 py-2">Title Status</td>
-                      <td className="py-2">
-                        <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${
-                          (vehicle.title_status || 'Clean').toLowerCase() === 'clean' 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-yellow-100 text-yellow-800'
-                        }`}>
-                          {vehicle.title_status || 'Clean'}
-                        </span>
-                      </td>
-                    </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="font-semibold text-gray-600 py-2">Make & Model</td>
-                      <td className="py-2">{`${vehicle.make} ${vehicle.model}`}</td>
-                    </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="font-semibold text-gray-600 py-2">Vehicle Type</td>
-                      <td className="py-2">{vehicle.type}</td>
-                    </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="font-semibold text-gray-600 py-2">Exterior Color</td>
-                      <td className="py-2">{vehicle.color}</td>
-                    </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="font-semibold text-gray-600 py-2">Mileage</td>
-                      <td className="py-2">{Number(vehicle.mileage).toLocaleString()} miles</td>
-                    </tr>
-                    <tr className="border-b border-gray-200">
-                      <td className="font-semibold text-gray-600 py-2">Condition</td>
-                      <td className="py-2">{specsData.condition || 'Excellent - Fully Inspected'}</td>
-                    </tr>
-                    <tr>
-                      <td className="font-semibold text-gray-600 py-2">Warranty</td>
-                      <td className="py-2">{specsData.warranty || '12 Months Coverage'}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          {/* Features */}
-          <div className="border-t-2 border-b-2 border-gray-200 py-16 mb-16">
-            <h2 className="text-3xl font-semibold text-center mb-12">Vehicle Features</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              {(specsData.features || [
-                'Fully Inspected', 'Clean Title', 'Regular Maintenance',
-                'No Accidents', 'Service Records', 'Warranty Included'
-              ]).map((feature: string) => (
-                <div key={feature} className="text-center">
-                  <span className="text-3xl font-bold text-black block mb-2">✓</span>
-                  <span className="font-semibold">{feature}</span>
-                </div>
               ))}
             </div>
           </div>
 
-          {/* Description */}
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 mb-16">
-            <h2 className="text-2xl font-semibold mb-4 border-b-2 border-black pb-3">About This Vehicle</h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              {getVehicleDescription()}
-            </p>
+          {/* Right: Info (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col">
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="px-3 py-1 bg-black text-white text-[9px] font-black uppercase tracking-widest rounded-full">
+                  {vehicle.status}
+                </span>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em]">VIN: {vehicle.vin}</span>
+              </div>
+              <h1 className="text-5xl font-black text-gray-900 tracking-tighter uppercase leading-none mb-2">
+                {vehicle.year} {vehicle.make}
+              </h1>
+              <p className="text-2xl font-bold text-gray-400 uppercase tracking-widest mb-6">{vehicle.model}</p>
+              
+              <div className="flex items-end gap-2 mb-10">
+                <span className="text-sm font-black text-gray-400 mb-1">$</span>
+                <span className="text-6xl font-black text-black tracking-tighter">
+                  {Number(vehicle.price).toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-4 mb-10">
+              <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100">
+                <span className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Recorded Mileage</span>
+                <span className="text-xl font-black text-gray-900">{Number(vehicle.mileage).toLocaleString()} MILES</span>
+              </div>
+              <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100">
+                <span className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Exterior Finish</span>
+                <span className="text-xl font-black text-gray-900 uppercase">{vehicle.color || 'Not Specified'}</span>
+              </div>
+              <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100">
+                <span className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Power Plant</span>
+                <span className="text-xl font-black text-gray-900 uppercase">{vehicle.engine || 'Standard'}</span>
+              </div>
+              <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100">
+                <span className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Transmission</span>
+                <span className="text-xl font-black text-gray-900 uppercase">{vehicle.transmission || 'Automatic'}</span>
+              </div>
+            </div>
+
+            {/* Main CTA */}
+            <div className="mt-auto space-y-4">
+              <button 
+                onClick={() => onInquire({
+                  id: vehicle.id,
+                  year: vehicle.year,
+                  make: vehicle.make,
+                  model: vehicle.model,
+                  price: Number(vehicle.price),
+                  image: vehicle.image_main || 'placeholder.jpg'
+                })}
+                className="w-full py-6 bg-black text-white text-xs font-black uppercase tracking-[0.3em] rounded-[2rem] hover:bg-gray-800 transition-all shadow-2xl shadow-black/10 active:scale-95"
+              >
+                Inquire Information
+              </button>
+              <div className="flex gap-4">
+                <div className="flex-1 p-4 bg-white border-2 border-gray-100 rounded-2xl text-center">
+                  <span className="block text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">Title Status</span>
+                  <span className="text-xs font-black text-green-600 uppercase">{vehicle.title_status}</span>
+                </div>
+                <div className="flex-1 p-4 bg-white border-2 border-gray-100 rounded-2xl text-center">
+                  <span className="block text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">Availability</span>
+                  <span className="text-xs font-black text-blue-600 uppercase">Immediate</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section: Details & Features */}
+        <div className="grid lg:grid-cols-12 gap-16">
+          <div className="lg:col-span-7">
+            <h2 className="text-2xl font-black text-gray-900 tracking-tighter uppercase mb-8 flex items-center gap-4">
+              Detailed Description
+              <div className="h-px bg-gray-100 flex-1"></div>
+            </h2>
+            <div className="prose prose-lg max-w-none">
+              <p className="text-gray-500 leading-relaxed font-medium whitespace-pre-wrap">
+                {vehicle.description || `This premium ${vehicle.make} ${vehicle.model} has been meticulously maintained and represents the pinnacle of its class. Featuring a ${vehicle.color} exterior and a robust ${vehicle.engine} engine, it offers both style and performance. Every vehicle in our selection undergoes a comprehensive inspection process to ensure it meets our strict standards for quality and reliability.`}
+              </p>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5">
+            <h2 className="text-2xl font-black text-gray-900 tracking-tighter uppercase mb-8 flex items-center gap-4">
+              Premium Features
+              <div className="h-px bg-gray-100 flex-1"></div>
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+              {(specsData.features || ['Fully Inspected', 'Clean Title']).map((feature: string, idx: number) => (
+                <div key={idx} className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7" /></svg>
+                  </div>
+                  <span className="text-sm font-bold text-gray-700 uppercase tracking-tight">{feature}</span>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-12 p-8 bg-black rounded-[2.5rem] text-white">
+              <h3 className="text-lg font-black uppercase tracking-tighter mb-4">Interested?</h3>
+              <p className="text-xs font-medium text-gray-400 mb-6 leading-relaxed">Schedule a private viewing or test drive at our facility today.</p>
+              <a href="tel:+12815202646" className="inline-block px-8 py-3 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-full hover:scale-105 transition-transform">
+                Call (281) 520-2646
+              </a>
+            </div>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
