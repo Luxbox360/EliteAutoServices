@@ -52,7 +52,7 @@ export default function VehiclesPage({
           mileage: `${Number(v.mileage).toLocaleString()} miles`,
           price: `$${Number(v.price).toLocaleString()}`,
           rawPrice: Number(v.price),
-          image: getVehicleImageUrl(v.image_main)
+          image: v.image_main || ''
         }));
 
         setVehicles(formatted);
