@@ -178,12 +178,17 @@ export default function ContactPage({ vehicleInfo }: ContactPageProps) {
                     <input
                       type="tel"
                       required
+                      maxLength={15}
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (/^[\d\s\-\+\(\)]*$/.test(val)) {
+                          setFormData({ ...formData, phone: val });
+                        }
+                      }}
                       className="w-full border border-gray-300 rounded px-3 py-3 text-sm focus:ring-black focus:border-black"
                       placeholder="(555) 000-0000"
-                    />
-                  </div>
+                    />                  </div>
                 </div>
 
                 <div>

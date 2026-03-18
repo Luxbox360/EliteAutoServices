@@ -37,7 +37,6 @@ export class VehiclesService {
         price: true,
         image_main: true,
         status: true,
-        featured: true,
       },
     });
   }
@@ -62,7 +61,6 @@ export class VehiclesService {
         images: true,
         specs: true,
         description: true,
-        featured: true,
         status: true,
       },
     });

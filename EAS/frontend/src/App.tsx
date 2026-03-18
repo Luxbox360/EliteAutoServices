@@ -90,6 +90,13 @@ function App() {
     setIsInitialized(true);
   }, []);
 
+  // Route Protection
+  useEffect(() => {
+    if (isInitialized && !auth && currentPage === 'admin-dashboard') {
+      setCurrentPage('login');
+    }
+  }, [isInitialized, auth, currentPage]);
+
   const handleLogin = (token: string, user: User) => {
     const authData = { token, user };
     setAuth(authData);

@@ -5,6 +5,7 @@ import {
   IsBoolean,
   IsNumber,
   Length,
+  IsIn,
 } from 'class-validator';
 
 export class CreateVehicleDto {
@@ -43,6 +44,7 @@ export class CreateVehicleDto {
 
   @IsOptional()
   @IsString()
+  @IsIn(['Continuously Variable (CVT)', 'Automatic (AT)', 'Manual (MT)'])
   transmission?: string;
 
   @IsOptional()
@@ -66,8 +68,4 @@ export class CreateVehicleDto {
   @IsOptional()
   @IsString()
   status?: string;
-
-  @IsOptional()
-  @IsBoolean()
-  featured?: boolean;
 }

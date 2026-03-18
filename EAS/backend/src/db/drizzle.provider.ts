@@ -11,8 +11,12 @@ export const drizzleProvider = [
     inject: [ConfigService],
     useFactory: (configService: ConfigService) => {
       const connectionString = configService.get<string>('DATABASE_URL');
+      
+      const isProduction = process.env.NODE_ENV === 'production' || connectionString?.includes('railway.app');
+
       const pool = new Pool({
         connectionString,
+        ...(isProduction && { ssl: { rejectUnauthorized: false } }),
       });
       return drizzle(pool, { schema });
     },

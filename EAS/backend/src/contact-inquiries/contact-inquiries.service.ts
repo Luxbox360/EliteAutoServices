@@ -8,10 +8,21 @@ import { eq, desc } from 'drizzle-orm';
 export class ContactInquiriesService {
   constructor(@Inject(DRIZZLE) private db: NodePgDatabase<typeof schema>) {}
 
-  async create(data: typeof schema.contactInquiry.$inferInsert) {
+  async create(data: Partial<typeof schema.contactInquiry.$inferInsert>) {
+    // Sanitizamos la data para garantizar que no haya campos requeridos omitidos
+    // o datos basura que rompan el query de Drizzle.
+    const safeData: typeof schema.contactInquiry.$inferInsert = {
+      name: data.name || 'Anonymous',
+      email: data.email || 'No email provided',
+      phone: data.phone || null,
+      message: data.message || 'No message content',
+      vehicle_id: data.vehicle_id || null,
+      status: 'new',
+    };
+
     const result = await this.db
       .insert(schema.contactInquiry)
-      .values(data)
+      .values(safeData)
       .returning();
     return result[0];
   }

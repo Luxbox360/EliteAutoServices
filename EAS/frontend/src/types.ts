@@ -22,7 +22,6 @@ export interface Vehicle {
   price: number;
   image_main: string | null;
   status: string;
-  featured: boolean;
   description?: string;
   title_status?: string;
   transmission?: string;

@@ -70,7 +70,7 @@ export default function Header({
                 }}
                 className={`px-4 py-2 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 rounded-lg ${
                   currentPage === link.id 
-                    ? 'text-black bg-gray-50' 
+                    ? 'bg-black text-white' 
                     : 'text-gray-600 hover:text-black hover:bg-gray-50'
                 }`}
               >
@@ -153,7 +153,7 @@ export default function Header({
                     closeMenu();
                   }}
                   className={`text-left px-4 py-3 text-sm font-bold uppercase tracking-widest rounded-xl transition-all ${
-                    currentPage === link.id ? 'bg-gray-50 text-black' : 'text-gray-600'
+                    currentPage === link.id ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-50'
                   }`}
                 >
                   {link.label}

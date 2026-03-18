@@ -22,14 +22,13 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
     type: 'SUV',
     color: '',
     mileage: 0,
-    price: 0,
+    price: '',
     title_status: 'Clean',
     transmission: 'Automatic',
     engine: '',
     description: '',
     image_main: '',
     images: [] as string[],
-    featured: false,
     specs: {
       condition: 'Excellent',
       warranty: '12 Months',
@@ -68,7 +67,6 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
         description: vehicle.description || '',
         image_main: vehicle.image_main || '',
         images: Array.isArray(vehicle.images) ? vehicle.images : [],
-        featured: vehicle.featured || false,
         specs: vehicleSpecs
       });
 
@@ -278,9 +276,37 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+            <div className="relative">
+              <label className="text-[9px] font-black uppercase text-gray-400 tracking-widest absolute -top-2 left-4 bg-white px-2 z-10">VIN Identification</label>
+              <input
+                type="text"
+                name="vin"
+                required
+                maxLength={17}
+                value={formData.vin}
+                onChange={handleChange}
+                placeholder="17 Characters"
+                className="w-full bg-white border-2 border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold focus:border-black transition-all outline-none placeholder-gray-300"
+              />
+            </div>
+            
+            <div className="relative">
+              <label className="text-[9px] font-black uppercase text-gray-400 tracking-widest absolute -top-2 left-4 bg-white px-2 z-10">Listing Price (USD)</label>
+              <input
+                type="number"
+                name="price"
+                required
+                max="99999999"
+                value={formData.price}
+                onChange={(e) => {
+                  if (e.target.value.length <= 8) handleChange(e);
+                }}
+                placeholder="0.00"
+                className="w-full bg-white border-2 border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold focus:border-black transition-all outline-none placeholder-gray-300"
+              />
+            </div>
+
             {[
-              { label: 'VIN Identification', name: 'vin', type: 'text', placeholder: '17 Characters' },
-              { label: 'Listing Price (USD)', name: 'price', type: 'number', placeholder: '0.00' },
               { label: 'Production Year', name: 'year', type: 'number', placeholder: '2024' },
               { label: 'Exterior Finish', name: 'color', type: 'text', placeholder: 'e.g. Alpine White' },
               { label: 'Manufacturer', name: 'make', type: 'text', placeholder: 'e.g. BMW' },
@@ -333,7 +359,14 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
               </div>
               <div className="relative">
                 <label className="text-[9px] font-black uppercase text-gray-400 tracking-widest absolute -top-2 left-4 bg-white px-2 z-10">Transmission</label>
-                <input type="text" name="transmission" value={formData.transmission} onChange={handleChange} placeholder="e.g. 8-Speed Auto" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold focus:border-black transition-all outline-none" />
+                <select name="transmission" value={formData.transmission} onChange={handleChange} className="w-full bg-white border-2 border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold focus:border-black transition-all outline-none cursor-pointer appearance-none">
+                  <option value="Continuously Variable (CVT)">Continuously Variable (CVT)</option>
+                  <option value="Automatic (AT)">Automatic (AT)</option>
+                  <option value="Manual (MT)">Manual (MT)</option>
+                </select>
+                <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" /></svg>
+                </div>
               </div>
             </div>
           </div>
@@ -384,14 +417,7 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
         </section>
 
         {/* Submit */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-12 border-t border-gray-100">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center p-4 bg-blue-50 rounded-2xl border border-blue-100 transition-all cursor-pointer group hover:bg-blue-600">
-              <input type="checkbox" name="featured" id="featured" checked={formData.featured} onChange={handleChange} className="h-5 w-5 text-blue-600 border-2 border-blue-200 rounded-lg focus:ring-0 transition-all" />
-              <label htmlFor="featured" className="ml-4 block text-[10px] font-black text-blue-700 uppercase tracking-widest cursor-pointer group-hover:text-white transition-colors">Featured Inventory</label>
-            </div>
-          </div>
-
+        <div className="flex flex-col md:flex-row justify-end items-center gap-8 pt-12 border-t border-gray-100">
           <div className="flex items-center gap-8">
             <button type="button" onClick={onCancel} className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 hover:text-red-500 transition-all">Discard</button>
             <button 

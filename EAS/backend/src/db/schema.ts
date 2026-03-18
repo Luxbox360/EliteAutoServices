@@ -44,7 +44,6 @@ export const vehicle = pgTable(
     image_main: varchar('image_main', { length: 255 }),
     images: jsonb('images'),
     status: varchar('status', { length: 20 }).default('available').notNull(),
-    featured: boolean('featured').default(false).notNull(),
     created_at: timestamp('created_at', { mode: 'date' })
       .defaultNow()
       .notNull(),
@@ -57,7 +56,6 @@ export const vehicle = pgTable(
       vinIdx: index('idx_vehicle_vin').on(table.vin),
       statusIdx: index('idx_vehicle_status').on(table.status),
       priceIdx: index('idx_vehicle_price').on(table.price),
-      featuredIdx: index('idx_vehicle_featured').on(table.featured),
     };
   },
 );

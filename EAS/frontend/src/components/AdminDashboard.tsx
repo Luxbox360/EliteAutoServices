@@ -142,7 +142,7 @@ export default function AdminDashboard({ user, token, onLogout }: AdminDashboard
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa]">
+    <div className="min-h-screen bg-[#f5f5f5]">
       {/* Delete Confirmation Modal */}
       {deleteModal.isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">

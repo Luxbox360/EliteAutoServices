@@ -37,6 +37,7 @@ export default function VehiclesPage({
   const [filterMake, setFilterMake] = useState('All');
   const [filterType, setFilterType] = useState('All');
   const [sortBy, setSortBy] = useState('Newest');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/vehicles`)
@@ -70,7 +71,13 @@ export default function VehiclesPage({
     const result = vehicles.filter(v => {
       const matchMake = filterMake === 'All' || v.make === filterMake;
       const matchType = filterType === 'All' || v.type === filterType;
-      return matchMake && matchType;
+      
+      const searchLower = searchTerm.toLowerCase();
+      const matchSearch = searchTerm === '' || 
+        v.title.toLowerCase().includes(searchLower) || 
+        v.make.toLowerCase().includes(searchLower);
+
+      return matchMake && matchType && matchSearch;
     });
 
     if (sortBy === 'Price: Low to High') {
@@ -80,7 +87,7 @@ export default function VehiclesPage({
     }
     
     return result;
-  }, [vehicles, filterMake, filterType, sortBy]);
+  }, [vehicles, filterMake, filterType, sortBy, searchTerm]);
 
   if (loading) {
     return (
@@ -95,37 +102,48 @@ export default function VehiclesPage({
       <VehiclesHero />
       
       {/* Filters Bar */}
-      <section className="bg-gray-50 border-b border-gray-200 py-6">
+      <section className="bg-zinc-50 border-b border-gray-200 py-6">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-4 items-end">
+            <div className="w-full md:w-64">
+              <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Search</label>
+              <input 
+                type="text" 
+                placeholder="Search Make, Model..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-white border border-gray-300 rounded px-3 py-2 text-sm focus:ring-zinc-800 focus:border-zinc-800"
+              />
+            </div>
+            
             <div className="w-full md:w-auto">
-              <label className="block text-xs font-bold uppercase text-gray-500 mb-2">Make</label>
+              <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Make</label>
               <select 
                 value={filterMake}
                 onChange={(e) => setFilterMake(e.target.value)}
-                className="w-full md:w-48 bg-white border border-gray-300 rounded px-3 py-2 text-sm focus:ring-black focus:border-black"
+                className="w-full md:w-48 bg-white border border-gray-300 rounded px-3 py-2 text-sm focus:ring-zinc-800 focus:border-zinc-800"
               >
                 {makes.map(m => <option key={m} value={m}>{m}</option>)}
               </select>
             </div>
             
             <div className="w-full md:w-auto">
-              <label className="block text-xs font-bold uppercase text-gray-500 mb-2">Type</label>
+              <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Type</label>
               <select 
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="w-full md:w-48 bg-white border border-gray-300 rounded px-3 py-2 text-sm focus:ring-black focus:border-black"
+                className="w-full md:w-48 bg-white border border-gray-300 rounded px-3 py-2 text-sm focus:ring-zinc-800 focus:border-zinc-800"
               >
                 {types.map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
 
             <div className="w-full md:w-auto md:ml-auto">
-              <label className="block text-xs font-bold uppercase text-gray-500 mb-2">Sort By</label>
+              <label className="block text-xs font-bold uppercase text-zinc-500 mb-2">Sort By</label>
               <select 
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full md:w-48 bg-white border border-gray-300 rounded px-3 py-2 text-sm focus:ring-black focus:border-black"
+                className="w-full md:w-48 bg-white border border-gray-300 rounded px-3 py-2 text-sm focus:ring-zinc-800 focus:border-zinc-800"
               >
                 <option>Newest</option>
                 <option>Price: Low to High</option>
@@ -134,7 +152,7 @@ export default function VehiclesPage({
             </div>
           </div>
           
-          <div className="mt-4 text-sm text-gray-500">
+          <div className="mt-4 text-sm text-zinc-500">
             Showing {filteredVehicles.length} vehicles
           </div>
         </div>
