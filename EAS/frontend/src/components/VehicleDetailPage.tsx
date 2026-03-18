@@ -13,8 +13,6 @@ interface VehicleDetailPageProps {
 
 export default function VehicleDetailPage({
   vehicleId,
-  setCurrentPage,
-  setSelectedVehicleId,
   onInquire,
 }: VehicleDetailPageProps) {
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
