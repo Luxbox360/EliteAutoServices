@@ -62,11 +62,6 @@ export default function VehicleDetailPage({
 
   const currentImageSrc = getVehicleImageUrl(allImages[currentImageIndex]);
 
-  const handleBackToVehicles = () => {
-    setSelectedVehicleId(null);
-    setCurrentPage('vehicles');
-  };
-
   const specsData = (vehicle.specs as any) || {
     condition: 'Excellent',
     warranty: '12 Months',

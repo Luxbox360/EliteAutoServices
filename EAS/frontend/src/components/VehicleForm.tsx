@@ -22,7 +22,7 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
     type: 'SUV',
     color: '',
     mileage: 0,
-    price: '',
+    price: 0,
     title_status: 'Clean',
     transmission: 'Automatic',
     engine: '',
