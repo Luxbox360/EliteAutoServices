@@ -47,26 +47,21 @@ export default function LoginPage({ onLogin, setCurrentPage }: LoginPageProps) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden">
-      {/* Abstract Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[60%] bg-gray-50 rounded-full blur-3xl opacity-50"></div>
-        <div className="absolute bottom-[-5%] left-[-5%] w-[30%] h-[50%] bg-gray-50 rounded-full blur-3xl opacity-50"></div>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5] relative overflow-hidden font-sans">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 0.5px, transparent 0.5px)', backgroundSize: '32px 32px' }}></div>
 
       <div className="max-w-md w-full px-8 relative z-10">
-        <div className="mb-12 text-center">
-          <div className="inline-block mb-6">
-            <div className="flex flex-col items-center">
-              <span className="text-4xl font-black text-black tracking-tighter uppercase leading-none">
-                Elite Auto
-              </span>
-              <span className="text-xs font-bold text-gray-400 tracking-[0.5em] uppercase leading-none mt-2">
-                Management
-              </span>
-            </div>
+        <div className="mb-14 text-center">
+          <div className="flex flex-col items-center">
+            <span className="text-5xl font-black text-black tracking-tighter uppercase leading-none italic">
+              Elite Auto
+            </span>
+            <span className="text-xs font-bold text-zinc-400 tracking-[0.5em] uppercase leading-none mt-3">
+              Management
+            </span>
           </div>
-          <h2 className="text-xl font-bold text-gray-900 uppercase tracking-widest">
+          <h2 className="text-xl font-bold text-zinc-900 uppercase tracking-widest mt-8">
             Identity Verification
           </h2>
         </div>
@@ -80,7 +75,7 @@ export default function LoginPage({ onLogin, setCurrentPage }: LoginPageProps) {
           
           <div className="space-y-6">
             <div className="relative group">
-              <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] absolute -top-2.5 left-4 bg-white px-2 z-10 transition-colors group-focus-within:text-black">
+              <label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] absolute -top-2.5 left-4 bg-[#f5f5f5] px-2 z-10 transition-colors group-focus-within:text-black">
                 Operator ID
               </label>
               <input
@@ -88,7 +83,7 @@ export default function LoginPage({ onLogin, setCurrentPage }: LoginPageProps) {
                 name="username"
                 type="text"
                 required
-                className="block w-full px-5 py-4 bg-white border-2 border-gray-100 rounded-2xl text-black font-bold focus:outline-none focus:border-black focus:ring-0 transition-all duration-300 placeholder-gray-200"
+                className="block w-full px-5 py-4 bg-white border-2 border-zinc-200 rounded-2xl text-black font-bold focus:outline-none focus:border-black focus:ring-0 transition-all duration-300 placeholder-zinc-200"
                 placeholder="Enter username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -96,7 +91,7 @@ export default function LoginPage({ onLogin, setCurrentPage }: LoginPageProps) {
             </div>
 
             <div className="relative group">
-              <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] absolute -top-2.5 left-4 bg-white px-2 z-10 transition-colors group-focus-within:text-black">
+              <label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] absolute -top-2.5 left-4 bg-[#f5f5f5] px-2 z-10 transition-colors group-focus-within:text-black">
                 Security Key
               </label>
               <input
@@ -104,7 +99,7 @@ export default function LoginPage({ onLogin, setCurrentPage }: LoginPageProps) {
                 name="password"
                 type="password"
                 required
-                className="block w-full px-5 py-4 bg-white border-2 border-gray-100 rounded-2xl text-black font-bold focus:outline-none focus:border-black focus:ring-0 transition-all duration-300 placeholder-gray-200"
+                className="block w-full px-5 py-4 bg-white border-2 border-zinc-200 rounded-2xl text-black font-bold focus:outline-none focus:border-black focus:ring-0 transition-all duration-300 placeholder-zinc-200"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -116,7 +111,7 @@ export default function LoginPage({ onLogin, setCurrentPage }: LoginPageProps) {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full flex justify-center py-5 px-4 border-2 border-black text-xs font-black uppercase tracking-[0.3em] rounded-2xl text-white bg-black hover:bg-white hover:text-black transition-all duration-500 transform active:scale-95 shadow-xl shadow-black/10 ${
+              className={`w-full flex justify-center py-5 px-4 bg-black text-xs font-black uppercase tracking-[0.3em] rounded-2xl text-white hover:bg-zinc-800 transition-all duration-500 transform active:scale-95 shadow-xl shadow-black/10 ${
                 isLoading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
@@ -131,16 +126,16 @@ export default function LoginPage({ onLogin, setCurrentPage }: LoginPageProps) {
             <button
               type="button"
               onClick={() => setCurrentPage('home')}
-              className="w-full text-center py-2 text-[10px] font-bold text-gray-400 hover:text-black transition-colors uppercase tracking-[0.2em]"
+              className="w-full text-center py-2 text-[10px] font-bold text-zinc-400 hover:text-black transition-colors uppercase tracking-[0.2em]"
             >
-              ← Terminate and Return
+              ← Back to the public site
             </button>
           </div>
         </form>
 
-        <div className="mt-20 pt-8 border-t border-gray-50 text-center">
-          <p className="text-[9px] font-bold text-gray-300 uppercase tracking-[0.3em]">
-            Secure Administrative Gateway v2.0
+        <div className="mt-20 pt-8 border-t border-zinc-200 text-center">
+          <p className="text-[9px] font-bold text-zinc-300 uppercase tracking-[0.3em]">
+            Secure Administrative Gateway v2.5
           </p>
         </div>
       </div>

@@ -44,7 +44,7 @@ export class CreateVehicleDto {
 
   @IsOptional()
   @IsString()
-  @IsIn(['Continuously Variable (CVT)', 'Automatic (AT)', 'Manual (MT)'])
+  @IsIn(['Automatic (AT)', 'Manual (MT)', 'Sequential manual (SMT)'])
   transmission?: string;
 
   @IsOptional()

@@ -24,7 +24,7 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
     mileage: 0,
     price: 0,
     title_status: 'Clean',
-    transmission: 'Automatic',
+    transmission: 'Automatic (AT)',
     engine: '',
     description: '',
     image_main: '',
@@ -62,7 +62,7 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
         mileage: Number(vehicle.mileage) || 0,
         price: Number(vehicle.price) || 0,
         title_status: vehicle.title_status || 'Clean',
-        transmission: vehicle.transmission || 'Automatic',
+        transmission: vehicle.transmission || 'Automatic (AT)',
         engine: vehicle.engine || '',
         description: vehicle.description || '',
         image_main: vehicle.image_main || '',
@@ -360,9 +360,9 @@ export default function VehicleForm({ vehicle, onSave, onCancel, token }: Vehicl
               <div className="relative">
                 <label className="text-[9px] font-black uppercase text-gray-400 tracking-widest absolute -top-2 left-4 bg-white px-2 z-10">Transmission</label>
                 <select name="transmission" value={formData.transmission} onChange={handleChange} className="w-full bg-white border-2 border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold focus:border-black transition-all outline-none cursor-pointer appearance-none">
-                  <option value="Continuously Variable (CVT)">Continuously Variable (CVT)</option>
                   <option value="Automatic (AT)">Automatic (AT)</option>
                   <option value="Manual (MT)">Manual (MT)</option>
+                  <option value="Sequential manual (SMT)">Sequential manual (SMT)</option>
                 </select>
                 <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" /></svg>
